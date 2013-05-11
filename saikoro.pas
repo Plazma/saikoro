@@ -32,7 +32,26 @@ begin
         write('Enter the name of die #', i+1, ': ');
         readln(myDice[i].Name);
         write('Enter the number of rolls for die #', i+1, ': ');
+
+        {$I-}
         readln(myDice[i].rolls);
+        {$I+}
+
+        (* Test to see if integer *)
+        while (myDice[i].rolls > 50) or (ioresult <> 0) do
+        begin
+
+            writeln;
+            writeln('*** ERROR: Invalid Input! ***');
+            writeln;
+            write('Enter the number of rolls for die #', i+1, ': ');
+
+            {$I-}
+            readln(myDice[i].rolls);
+            {$I+}
+
+        end;
+
         writeln;
 
         AssignFile(dieFile, myDice[i].Name);
@@ -48,7 +67,6 @@ begin
             begin
 
                 (* Read die file into string *)
-                (* NEED TO FIX ***)
                 Readln(dieFile,lines);
 
                 myDice[i].content[count] := lines;
@@ -118,7 +136,7 @@ begin
     while response <> '3' do
     begin
         writeln;
-        writeln('****** Saikoro! Dice Roller Magic Fun Time! ******');
+        writeln('======= Saikoro! Dice Roller Magic Fun Time! =======');
         writeln;
         writeln('1.     Load Dice');
         writeln('2.     Roll Dice');
@@ -130,8 +148,26 @@ begin
             '1': Begin
                     write('Enter the number of dice: ');
 
-                    (* Fix with Error Checking *)
+                    {$I-} 
                     readln(numDice);
+                    {$I+}
+
+                    while (numDice > 50) or (ioresult <> 0) do
+                    begin
+
+                        writeln;
+                        writeln('*** ERROR: Invalid Input! ***');
+                        writeln;
+                        write('Enter the number of dice:  ');
+
+                        (* Turn of I/O type checking *)
+                        {$I-}
+                        readln(numDice);
+                        (* Turn on I/O type checking *)
+                        {$I+}
+
+                    end;
+
                     writeln;
 
                     (* Set the length of how many dice we have *)
