@@ -1,0 +1,11 @@
+hair
+shirt
+pants
+belt
+eyes
+socks
+glasses
+skin
+teeth
+shoes
+boots
